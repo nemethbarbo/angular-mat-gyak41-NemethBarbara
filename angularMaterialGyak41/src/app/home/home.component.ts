@@ -18,7 +18,7 @@ export class HomeComponent {
   }
   
   public get AngularLogoURL(): string {
-  return this.angularLogoURL; //FONTOS: fieldre hivatkozzunk (mezőre) - kisbetűs
+  return this.angularLogoURL;
   }
   
   public get AngularLogoTitle(): string {
