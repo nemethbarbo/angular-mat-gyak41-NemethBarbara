@@ -9,20 +9,21 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 export class CarReactiveFormComponent implements OnInit{
 
-  form!:FormGroup;    // form nevű változó ami mindenképp FormGroup lesz, nem any típusú
-  carCategories = ["személy", "teher"];
-  date = new Date();
-
   constructor(private fb: FormBuilder){ }   // dependency injection, FormBuilder injectálása
 
-  
+  form!:FormGroup;    // form nevű változó ami mindenképp FormGroup lesz, nem any típusú
+
+  carCategory = [
+    {value: '1', viewValue: 'személy'},
+    {value: '2', viewValue: 'teher'},
+  ]
   
   ngOnInit(): void {
     this.form = this.fb.group({   // űrlapelemek megadása, two-way binding megadása materiallal
-      carLicencePlateNr: ['', [Validators.required, Validators.pattern('[A-Z{3}-[0-9]{3}]')]],
+      carLicencePlateNr: ['', [Validators.required, Validators.pattern('[A-Z{3}.-.[0-9]{3}]')]],
       carManufacturer: ['', [Validators.minLength(3), Validators.maxLength(30),Validators.required] ],
       carModel: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(20)]],
-      carCathegory: '', // legördülő menü kell
+      carCategory: '', // legördülő menü kell
       carFuelConsumption: ['', [Validators.minLength(0), Validators.maxLength(40),Validators.required] ],
       carManufactureYear: ['', [Validators.min(1920), Validators.max(new Date().getFullYear())] ],
       carValue: ['', [Validators.min(0), Validators.max(80000000)] ],
@@ -44,13 +45,9 @@ export class CarReactiveFormComponent implements OnInit{
     }
  }  
 
-  carCathegories:Cathegory[] = [
-    {value: '1', viewValue: 'személy'},
-    {value: '2', viewValue: 'teher'},
-  ]
 }
 
-interface Cathegory {    
+interface Category {    
   value:string;
   viewValue:string;
 }

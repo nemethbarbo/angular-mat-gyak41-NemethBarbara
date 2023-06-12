@@ -3,20 +3,21 @@
     <!-- appearance típusok: outline, fill-->
     <mat-form-field appearance="outline">
         <mat-label>Rendszám</mat-label>
-        <input type="text" matInput formControlName="carLicencePlateNr" placeholder="A rendszám megadása kötelező!">
+        <input matInput formControlName="carLicencePlateNr">
         <mat-error
             *ngIf="form.get('carLicencePlateNr')?.invalid && (form.get('carLicencePlateNr')?.dirty || form.get('carLicencePlateNr')?.touched)">
             <ng-container *ngIf="form.get('carLicencePlateNr')?.errors?.['required']">
                 A rendszám megadása kötelező!!!
             </ng-container>
         </mat-error>
+        <mat-hint>A rendszám megadása kötelező</mat-hint>
     </mat-form-field>
     <br>
     <mat-form-field appearance="outline">
         <mat-label>Gyártó</mat-label>
-        <input type="text" matInput formControlName="carManufacturer" placeholder="Gyártó* min.3, max. 30 karakter">
+        <input matInput formControlName="carManufacturer" placeholder="Gyártó* min.3, max. 30 karakter">
         <mat-error
-            *ngIf="form.get('carManufacturer)?.invalid && (form.get('carManufacturer')?.dirty || form.get('carManufacturer')?.touched)">
+            *ngIf="form.get('carManufacturer')?.invalid && (form.get('carManufacturer')?.dirty || form.get('carManufacturer')?.touched)">
             <ng-container *ngIf="form.get('carManufacturer')?.errors?.['required']">
                 A gyártónév kötelező mező!!!
             </ng-container>
@@ -37,8 +38,8 @@
     <br>
     <mat-form-field appearance="outline">
         <mat-label>Kategória</mat-label>
-        <mat-select formControlName="carCathegory">
-            <mat-option *ngFor="let carCathegory of carCathegories" [value]="carCathegory.value">{{carCathegory.viewValue}}</mat-option>
+        <mat-select formControlName="carCategory">
+            <mat-option *ngFor="let carCategory of carCategory" [value]="carCategory.value">{{carCategory.viewValue}}</mat-option>
         </mat-select>
         <mat-hint>Autó: személy vagy teher</mat-hint>
     </mat-form-field>
@@ -78,7 +79,7 @@
 <p>Rendszáma: {{this.form.controls['carLicencePlateNr'].value}}</p>
 <p>Gyártó: {{this.form.controls['carManufacturer'].value}}</p>
 <p>Model: {{this.form.controls['carModel'].value}}</p>
-<p>Kategória: {{this.form.controls['carCathegory'].value}}</p>
+<p>Kategória: {{this.form.controls['carCategory'].value}}</p>
 <p>Fogyasztás: {{this.form.controls['carFuelConsumption'].value}}</p>
 <p>Gyártási éve: {{this.form.controls['carManufactureYear'].value}}</p>
 <p>Értéke: {{this.form.controls['carValue'].value}}</p>
