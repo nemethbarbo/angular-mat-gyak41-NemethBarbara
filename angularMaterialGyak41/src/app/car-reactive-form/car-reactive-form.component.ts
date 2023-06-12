@@ -15,7 +15,7 @@ export class CarReactiveFormComponent implements OnInit{
   
   ngOnInit(): void {
     this.form = this.fb.group({   // űrlapelemek megadása, two-way binding megadása materiallal
-      carLicencePlateNr: ['', [Validators.required, Validators.pattern('^[A-Z{3}.-.0-9{3}]$')]], // pattern regex101en jó de itt nem műk.
+      carLicencePlateNr: ['', [Validators.required, Validators.pattern('[A-Z{3}-[0-9]{3}]')]],
       carManufacturer: ['', [Validators.minLength(3), Validators.maxLength(30),Validators.required] ],
       carModel: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(20)]],
       carCathegory: '', // legördülő menü kell
@@ -25,7 +25,7 @@ export class CarReactiveFormComponent implements OnInit{
       carMileage: ['', Validators.min(0)],
       carCondition: '', // checkbox
     });
-    this.form.valueChanges.subscribe(console.log);  // adatváltozáskor rögtön írja ki a clg
+    this.form.valueChanges.subscribe(console.log); 
   }
 
   onSubmit():void {
@@ -36,7 +36,6 @@ export class CarReactiveFormComponent implements OnInit{
      "l \nGyártási év: " + this.form.value.carManufactureYear+" \nÉrtéke: " + this.form.value.carValue+ "Ft \nFutott km: " + this.form.value.carMileage+
       " % \nÁllapot: " + this.form.value.status);
     } else {
-     // hibaüzenetek megjelenítése minden input mezőnél
      this.form.markAllAsTouched();
     }
  }  
