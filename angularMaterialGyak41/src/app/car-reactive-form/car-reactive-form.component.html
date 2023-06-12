@@ -67,7 +67,7 @@
         <mat-hint>min. 0km</mat-hint>
     </mat-form-field>
     <br>
-    <mat-checkbox formControlName="carCondition">Állapot</mat-checkbox>
+    <mat-checkbox formControlName="carStatus">Állapot</mat-checkbox>
     <br>
     <button mat-raised-button color="primary">Autó mentése</button>
 </form>
@@ -83,4 +83,4 @@
 <p>Gyártási éve: {{this.form.controls['carManufactureYear'].value}}</p>
 <p>Értéke: {{this.form.controls['carValue'].value}}</p>
 <p>Futott km: {{this.form.controls['carMileage'].value}}</p>
-<p>Állapot: {{this.form.controls['carCondition'].value}}</p>
+<p>Állapot: {{this.form.controls['carStatus'].value}}</p>

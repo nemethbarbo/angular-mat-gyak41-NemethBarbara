@@ -9,9 +9,13 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 export class CarReactiveFormComponent implements OnInit{
 
+  form!:FormGroup;    // form nevű változó ami mindenképp FormGroup lesz, nem any típusú
+  carCategories = ["személy", "teher"];
+  date = new Date();
+
   constructor(private fb: FormBuilder){ }   // dependency injection, FormBuilder injectálása
 
-  form!:FormGroup;    // form nevű változó ami mindenképp FormGroup lesz, nem any típusú
+  
   
   ngOnInit(): void {
     this.form = this.fb.group({   // űrlapelemek megadása, two-way binding megadása materiallal
@@ -20,10 +24,10 @@ export class CarReactiveFormComponent implements OnInit{
       carModel: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(20)]],
       carCathegory: '', // legördülő menü kell
       carFuelConsumption: ['', [Validators.minLength(0), Validators.maxLength(40),Validators.required] ],
-      carManufactureYear: ['', [Validators.min(1920), Validators.max(2023)] ],
+      carManufactureYear: ['', [Validators.min(1920), Validators.max(new Date().getFullYear())] ],
       carValue: ['', [Validators.min(0), Validators.max(80000000)] ],
       carMileage: ['', Validators.min(0)],
-      carCondition: '', // checkbox
+      carStatus: [true]
     });
     this.form.valueChanges.subscribe(console.log); 
   }
@@ -34,7 +38,7 @@ export class CarReactiveFormComponent implements OnInit{
      alert("A megadott adatok: \nRendszám: " + this.form.value.carLicencePlateNr+ " \nGyártó: "+this.form.value.carManufacturer+ 
      " \nModel: " + this.form.value.carModel+" \nKategória: " + this.form.value.carCathegory+ " \nFogyasztás: " + this.form.value.carFuelConsumption+
      "l \nGyártási év: " + this.form.value.carManufactureYear+" \nÉrtéke: " + this.form.value.carValue+ "Ft \nFutott km: " + this.form.value.carMileage+
-      " % \nÁllapot: " + this.form.value.status);
+      " % \nÁllapot: " + this.form.value.carStatus);
     } else {
      this.form.markAllAsTouched();
     }
