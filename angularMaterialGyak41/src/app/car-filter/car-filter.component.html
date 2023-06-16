@@ -1,1 +1,67 @@
-<p>car-filter works!</p>
+<div class="container">
+    <div class="filter-toolbar">
+        <mat-form-field>
+            <input matInput type="text" placeholder="Rendszám" [(ngModel)]="searchCarLicencePlateNr" (ngModelChange)="applyFilter()">
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput type="text" placeholder="Gyártó szűrés" [(ngModel)]="searchCarManufacturer" (ngModelChange)="applyFilter()">
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput type="text" placeholder="Model szűrés" [(ngModel)]="searchCarModel" (ngModelChange)="applyFilter()">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-select placeholder="Kategória szűrés" [(ngModel)]="searchCarCategory" (ngModelChange)="applyFilter()">
+                <mat-option value="">Kategóriák</mat-option>
+                <mat-option *ngFor="let carCategory of carCategories" [value]="carCategory">{{carCategory}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput type="number" placeholder="Fogyasztás" [(ngModel)]="searchCarFuelConsumption" (ngModelChange)="applyFilter()">
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput type="number" placeholder="Évjárat" [(ngModel)]="searchCarManufactureYear" (ngModelChange)="applyFilter()">
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput type="number" placeholder="Érték" [(ngModel)]="searchCarValue" (ngModelChange)="applyFilter()">
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput type="number" placeholder="Futott km" [(ngModel)]="searchCarMileage" (ngModelChange)="applyFilter()">
+        </mat-form-field>
+    </div>
+    <mat-table [dataSource]="filteredCars">
+        <ng-container matColumnDef="carLicencePlateNr">
+            <mat-header-cell *matHeaderCellDef>Rendszám</mat-header-cell>
+            <mat-cell *matCellDef="let car">{{car.carLicencePlateNr}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="carManufacturer">
+            <mat-header-cell *matHeaderCellDef>Gyártó</mat-header-cell>
+            <mat-cell *matCellDef="let car">{{car.carManufacturer}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="carModel">
+            <mat-header-cell *matHeaderCellDef>Model</mat-header-cell>
+            <mat-cell *matCellDef="let car">{{car.carModel}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="carCategory">
+            <mat-header-cell *matHeaderCellDef>Kategória</mat-header-cell>
+            <mat-cell *matCellDef="let car">{{car.carCategory}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="carFuelConsumption">
+            <mat-header-cell *matHeaderCellDef>Fogyasztás</mat-header-cell>
+            <mat-cell *matCellDef="let car">{{car.carFuelConsumption}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="carManufactureYear">
+            <mat-header-cell *matHeaderCellDef>Évjárat</mat-header-cell>
+            <mat-cell *matCellDef="let car">{{car.carManufactureYear}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="carValue">
+            <mat-header-cell *matHeaderCellDef>Érték</mat-header-cell>
+            <mat-cell *matCellDef="let car">{{car.carValue}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="carMileage">
+            <mat-header-cell *matHeaderCellDef>Futott km</mat-header-cell>
+            <mat-cell *matCellDef="let car">{{car.carMileage}}</mat-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+    </mat-table>
+</div>

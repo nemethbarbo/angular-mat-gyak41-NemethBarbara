@@ -1,87 +1,134 @@
-<h3 class="text-center mat-headline-2">Autó felvitel</h3>
-<form [formGroup]="form" (ngSubmit)="onSubmit()">                <!--form változóra hivatkozunk--> 
-    <!-- appearance típusok: outline, fill-->
-    <mat-form-field appearance="outline">
-        <mat-label>Rendszám</mat-label>
-        <input matInput formControlName="carLicencePlateNr">
-        <mat-error
-            *ngIf="form.get('carLicencePlateNr')?.invalid && (form.get('carLicencePlateNr')?.dirty || form.get('carLicencePlateNr')?.touched)">
-            <ng-container *ngIf="form.get('carLicencePlateNr')?.errors?.['required']">
-                A rendszám megadása kötelező!!!
-            </ng-container>
-        </mat-error>
-        <mat-hint>A rendszám megadása kötelező</mat-hint>
-    </mat-form-field>
-    <br>
-    <mat-form-field appearance="outline">
-        <mat-label>Gyártó</mat-label>
-        <input matInput formControlName="carManufacturer" placeholder="Gyártó* min.3, max. 30 karakter">
-        <mat-error
-            *ngIf="form.get('carManufacturer')?.invalid && (form.get('carManufacturer')?.dirty || form.get('carManufacturer')?.touched)">
-            <ng-container *ngIf="form.get('carManufacturer')?.errors?.['required']">
-                A gyártónév kötelező mező!!!
-            </ng-container>
-            <ng-container *ngIf="form.get('carManufacturer')?.errors?.['minlength']">
-                A gyártónév kötelezően min. 3 karakter!!!
-            </ng-container>
-            <ng-container *ngIf="form.get('carManufacturer')?.errors?.['maxlength']">
-                A gyártónév max. 30 karakter!!!
-            </ng-container>
-        </mat-error>
-    </mat-form-field>
-    <br>
-    <mat-form-field appearance="outline">
-        <mat-label>Model</mat-label>
-        <input matInput formControlName="carModel">
-        <mat-hint>min. 2, maximum 20 karakter</mat-hint>
-    </mat-form-field>
-    <br>
-    <mat-form-field appearance="outline">
-        <mat-label>Kategória</mat-label>
-        <mat-select formControlName="carCategory">
-            <mat-option *ngFor="let carCategory of carCategory" [value]="carCategory.value">{{carCategory.viewValue}}</mat-option>
-        </mat-select>
-        <mat-hint>Autó: személy vagy teher</mat-hint>
-    </mat-form-field>
-    <br>
-    <mat-form-field appearance="outline">
-        <mat-label>Fogyasztás</mat-label>
-        <input matInput formControlName="carFuelConsumption">
-        <mat-hint>min. 20, maximum 40 karakter</mat-hint>
-    </mat-form-field>
-    <br>
-    <mat-form-field appearance="outline">
-        <mat-label>Gyártási év</mat-label>
-        <input matInput formControlName="carManufactureYear">
-        <mat-hint>min. 1920, maximum 2023</mat-hint>
-    </mat-form-field>
-    <br>
-    <mat-form-field appearance="outline">
-        <mat-label>Értéke</mat-label>
-        <input matInput formControlName="carValue">
-        <mat-hint>min. 0, maximum 80.000.000Ft</mat-hint>
-    </mat-form-field>
-    <br>
-    <mat-form-field appearance="outline">
-        <mat-label>Futott km</mat-label>
-        <input matInput formControlName="carMileage">
-        <mat-hint>min. 0km</mat-hint>
-    </mat-form-field>
-    <br>
-    <mat-checkbox formControlName="carStatus">Állapot</mat-checkbox>
-    <br>
-    <button mat-raised-button color="primary">Autó mentése</button>
-</form>
+<div class="container">
+    <h2 class="text-center mat-headline-2">Gépjármű adatainak felvétele</h2>
+        <form [formGroup]="carForm" (ngSubmit)="onSubmit()">                <!--form változóra hivatkozunk--> 
+            <!-- appearance típusok: outline, fill-->
+            <mat-form-field appearance="outline">
+                <mat-label>Rendszám</mat-label>
+                <input type="text" matInput formControlName="carLicencePlateNr">
+                <mat-error
+                    *ngIf="carForm.get('carLicencePlateNr')?.invalid && (carForm.get('carLicencePlateNr')?.dirty || carForm.get('carLicencePlateNr')?.touched)">
+                    <ng-container *ngIf="carForm.get('carLicencePlateNr')?.errors?.['required']">
+                        A rendszám megadása kötelező!!!
+                    </ng-container>
+                    <ng-container *ngIf="carForm.get('carLicencePlateNr')?.errors?.['pattern']">
+                        Nem megfelelő formátum! (PCA-180)
+                    </ng-container>
+                </mat-error>
+                <mat-hint>A rendszám formátuma: PCA-180</mat-hint>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Gyártó</mat-label>
+                <input type="text" matInput formControlName="carManufacturer">
+                <mat-error
+                    *ngIf="carForm.get('carManufacturer')?.invalid && (carForm.get('carManufacturer')?.dirty || carForm.get('carManufacturer')?.touched)">
+                    <ng-container *ngIf="carForm.get('carManufacturer')?.errors?.['required']">
+                        A gyártónév kötelező mező!!!
+                    </ng-container>
+                    <ng-container *ngIf="carForm.get('carManufacturer')?.errors?.['minlength']">
+                        A gyártónév kötelezően min. 3 karakter!!!
+                    </ng-container>
+                    <ng-container *ngIf="carForm.get('carManufacturer')?.errors?.['maxlength']">
+                        A gyártónév max. 30 karakter!!!
+                    </ng-container>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Model</mat-label>
+                <input type="text" matInput formControlName="carModel">
+                <mat-error
+                    *ngIf="carForm.get('carModel')?.invalid && (carForm.get('carModel')?.dirty || carForm.get('carModel')?.touched)">
+                    <ng-container *ngIf="carForm.get('carModel')?.errors?.['required']">
+                        A modelnév kötelező mező!!!
+                    </ng-container>
+                    <ng-container *ngIf="carForm.get('carModel')?.errors?.['minlength']">
+                        A modelnév kötelezően min. 3 karakter!!!
+                    </ng-container>
+                    <ng-container *ngIf="carForm.get('carModel')?.errors?.['maxlength']">
+                        A modelnév max. 30 karakter!!!
+                    </ng-container>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Kategória</mat-label>
+                <mat-select formControlName="carCategory">
+                    <mat-option *ngFor="let carCategory of carCategories" [value]="carCategory.value">{{carCategory.viewValue}}</mat-option>
+                </mat-select>
+                <mat-error
+                        *ngIf="carForm.get('carCategory')?.invalid && (carForm.get('carCategory')?.dirty || carForm.get('carCategory')?.touched)">
+                        <ng-container *ngIf="carForm.get('carCategory')?.errors?.['required']">
+                            A kategóriát kötelező kitölteni!
+                        </ng-container>
+                    </mat-error>
+                <mat-hint>Autó: személy vagy teher</mat-hint>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Fogyasztás</mat-label>
+                <input type="number" matInput formControlName="carFuelConsumption">
+                <mat-error
+                    *ngIf="carForm.get('carFuelConsumption')?.invalid && (carForm.get('carFuelConsumption')?.dirty || carForm.get('carFuelConsumption')?.touched)">
+                    <ng-container *ngIf="carForm.get('carFuelConsumption')?.errors?.['required']">
+                        A fogyasztás megadása kötelező!!!
+                    </ng-container>
+                    <ng-container *ngIf="carForm.get('carFuelConsumption')?.errors?.['min']">
+                        A fogyasztás min. 0 liter!!!
+                    </ng-container>
+                    <ng-container *ngIf="carForm.get('carFuelConsumption')?.errors?.['max']">
+                        A fogyasztás max. 40 liter!!!
+                    </ng-container>
+                </mat-error>
+                <mat-hint>min. 0, maximum 40 liter</mat-hint>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Gyártási év</mat-label>
+                <input type="number" matInput formControlName="carManufactureYear">
+                <mat-error
+                        *ngIf="carForm.get('carManufactureYear')?.invalid && (carForm.get('carManufactureYear')?.dirty || carForm.get('carManufactureYear')?.touched)">
+                        <ng-container *ngIf="carForm.get('carManufactureYear')?.errors?.['min']">
+                            A gyártási év minimum 1920
+                        </ng-container>
+                        <ng-container *ngIf="carForm.get('carManufactureYear')?.errors?.['max']">
+                            A gyártási év maximum az aktuális év
+                        </ng-container>
+                    </mat-error>
+                <mat-hint>min. 1920, maximum az aktuális év</mat-hint>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Értéke</mat-label>
+                <input type="number" matInput formControlName="carValue">
+                <mat-error *ngIf="carForm.get('carValue')?.invalid && (carForm.get('carValue')?.dirty || carForm.get('carValue')?.touched)">
+                    <ng-container *ngIf="carForm.get('carValue')?.errors?.['min']">
+                        Az értéke minimum 0 Ft
+                    </ng-container>
+                    <ng-container *ngIf="carForm.get('carValue')?.errors?.['max']">
+                        Az értéke maximum 80.000.000 Ft
+                    </ng-container>
+                </mat-error>
+                <mat-hint>min. 0, maximum 80.000.000Ft</mat-hint>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Futott km</mat-label>
+                <input type="number" matInput formControlName="carMileage">
+                <mat-error *ngIf="carForm.get('carMileage')?.invalid && (carForm.get('carMileage')?.dirty || carForm.get('carMileage')?.touched)">
+                    <ng-container *ngIf="carForm.get('carMileage')?.errors?.['min']">
+                        Minimum 0 km
+                    </ng-container>
+                </mat-error>
+                <mat-hint>min. 0km</mat-hint>
+            </mat-form-field>
+            <mat-checkbox formControlName="carStatus">Állapot</mat-checkbox>
+            <button mat-raised-button color="primary" type="submit" >Autó mentése</button>
+        </form>
 <h3>Autó adatok - json formátumban (kétirányú adatkötés): </h3>
-{{form.value | json}}  
+{{carForm.value | json}}  
 <hr>
 <h3>Autó adatok másként (Interpolation) - kétirányú adatkötés: </h3>
-<p>Rendszáma: {{this.form.controls['carLicencePlateNr'].value}}</p>
-<p>Gyártó: {{this.form.controls['carManufacturer'].value}}</p>
-<p>Model: {{this.form.controls['carModel'].value}}</p>
-<p>Kategória: {{this.form.controls['carCategory'].value}}</p>
-<p>Fogyasztás: {{this.form.controls['carFuelConsumption'].value}}</p>
-<p>Gyártási éve: {{this.form.controls['carManufactureYear'].value}}</p>
-<p>Értéke: {{this.form.controls['carValue'].value}}</p>
-<p>Futott km: {{this.form.controls['carMileage'].value}}</p>
-<p>Állapot: {{this.form.controls['carStatus'].value}}</p>
+<p>Rendszáma: {{this.carForm.controls['carLicencePlateNr'].value}}</p>
+<p>Gyártó: {{this.carForm.controls['carManufacturer'].value}}</p>
+<p>Model: {{this.carForm.controls['carModel'].value}}</p>
+<p>Kategória: {{this.carForm.controls['carCategory'].value}}</p>
+<p>Fogyasztás: {{this.carForm.controls['carFuelConsumption'].value}}</p>
+<p>Gyártási éve: {{this.carForm.controls['carManufactureYear'].value}}</p>
+<p>Értéke: {{this.carForm.controls['carValue'].value}}</p>
+<p>Futott km: {{this.carForm.controls['carMileage'].value}}</p>
+<p>Állapot: {{this.carForm.controls['carStatus'].value}}</p>
+</div>
